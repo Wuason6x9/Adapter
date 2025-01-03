@@ -2,6 +2,8 @@
 
 ### **Items Utils for Minecraft plugins.**
 
+### [JavaDoc here](https://jitpack.io/com/github/Wuason6x9/Adapter/1.0/javadoc "Go to javadoc")
+
 ## Index
 
 - [Introduction](#introduction)
@@ -14,7 +16,7 @@
 - [Compatibilities](#compatibilities)
 - [More Examples](#more-examples)
 
-[!INFO]
+> [!INFO]
 > This library will still be updated and improved, so if you have any suggestions or find any bugs, please let me know.
 
 ### Introduction
@@ -138,7 +140,7 @@ tasks.shadowJar {
 
 ### After Setup
 
-[!IMPORTANT]
+> [!IMPORTANT]
 > If you do not this step, the library will not work.
 
 You need to initialize the library in your plugin:

@@ -51,20 +51,23 @@ tasks.register<Jar>("javadocJar") {
 tasks {
 
     javadoc {
+        dependsOn(shadowJar)
+
         setDestinationDir(file("build/javadoc"))
 
-        val submoduleSources = subprojects.flatMap { subproject ->
+        val modules = subprojects.flatMap { subproject ->
             subproject.sourceSets["main"].allJava.srcDirs
         }.filter { it.exists() }
-        source(submoduleSources)
+
         val submoduleClasspath = subprojects
             .flatMap { it.sourceSets["main"].compileClasspath }
+
+        source(modules)
         classpath = files(submoduleClasspath)
-        classpath = files(shadowJar.get().archiveFile.get().asFile) + classpath
     }
 
     build {
-        dependsOn(shadowJar)
+        dependsOn(javadoc)
     }
 
     shadowJar {
@@ -72,15 +75,27 @@ tasks {
         archiveClassifier.set("")
     }
 
-    publishing {
-        publications {
-            create<MavenPublication>("mavenJava") {
-                groupId = rootProject.group.toString()
-                artifactId = rootProject.name
-                version = rootProject.version.toString()
-                artifact(shadowJar)
-                artifact(javadoc)
-            }
+    withType<PublishToMavenLocal> {
+        dependsOn(jar)
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = rootProject.group.toString()
+            artifactId = rootProject.name
+            version = rootProject.version.toString()
+            artifact(tasks.shadowJar)
+            artifact(tasks.getByName("javadocJar"))
         }
     }
+}
+
+val file = file("readme.md")
+gradle.projectsEvaluated {
+    val content = file.readText()
+    val newContent = content.replace(Regex("(?<=Adapter/)(.*?)(?=/javadoc)"), "${project.version}")
+    file.writeText(newContent)
+    println("Readme.md updated")
 }

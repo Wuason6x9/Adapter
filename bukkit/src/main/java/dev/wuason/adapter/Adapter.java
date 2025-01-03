@@ -11,6 +11,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * An interface representing an adapter system for handling item stacks, blocks, entities, and related components.
+ * It provides methods to retrieve, validate, and compare adapter IDs and associated objects.
+ * The adapter IDs are strings uniquely identifying items or objects in the adapter system.
+ */
 public interface Adapter {
 
     /**
