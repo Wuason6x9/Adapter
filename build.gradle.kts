@@ -1,6 +1,9 @@
+import org.gradle.internal.declarativedsl.parsing.main
+
 plugins {
     id("java")
     id("com.gradleup.shadow") version "8.3.5"
+    id("org.gradle.maven-publish")
 }
 
 allprojects {
@@ -39,7 +42,24 @@ java {
     }
 }
 
+tasks.register<Jar>("javadocJar") {
+    archiveClassifier.set("javadoc")
+    from(tasks.javadoc)
+    dependsOn(tasks.javadoc)
+}
+
 tasks {
+
+    javadoc {
+        setDestinationDir(file("build/javadoc"))
+        val submoduleSources = subprojects.flatMap { subproject ->
+            subproject.sourceSets["main"].allJava.srcDirs
+        }.filter { it.exists() }
+        source(submoduleSources)
+        val submoduleClasspath = subprojects
+            .flatMap { it.sourceSets["main"].compileClasspath }
+        classpath = files(submoduleClasspath)
+    }
 
     build {
         dependsOn(shadowJar)
@@ -48,5 +68,17 @@ tasks {
     shadowJar {
         archiveBaseName.set("Adapter")
         archiveClassifier.set("")
+    }
+
+    publishing {
+        publications {
+            create<MavenPublication>("mavenJava") {
+                groupId = rootProject.group.toString()
+                artifactId = rootProject.name
+                version = rootProject.version.toString()
+                artifact(shadowJar)
+                artifact(javadoc)
+            }
+        }
     }
 }
