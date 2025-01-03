@@ -1,3 +1,8 @@
 rootProject.name = "Adapter"
 
-include("bukkit")
+include(
+    "bukkit",
+    "common",
+    "oraxen2",
+    "nexo"
+)

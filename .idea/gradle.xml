@@ -10,6 +10,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/bukkit" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/nexo" />
+            <option value="$PROJECT_DIR$/oraxen2" />
           </set>
         </option>
       </GradleProjectSettings>
