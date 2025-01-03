@@ -52,6 +52,9 @@ tasks {
 
     javadoc {
         setDestinationDir(file("build/javadoc"))
+
+        dependsOn(shadowJar)
+
         val submoduleSources = subprojects.flatMap { subproject ->
             subproject.sourceSets["main"].allJava.srcDirs
         }.filter { it.exists() }
