@@ -16,7 +16,7 @@
 - [Compatibilities](#compatibilities)
 - [More Examples](#more-examples)
 
-> [!INFO]
+> [!NOTE]
 > This library will still be updated and improved, so if you have any suggestions or find any bugs, please let me know.
 
 ### Introduction
