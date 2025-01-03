@@ -31,7 +31,6 @@ dependencies {
     implementation(project(":common")) //Common
     implementation(project(":oraxen2")) //Oraxen 2
     implementation(project(":bukkit")) //Bukkit
-    implementation("org.jetbrains:annotations:24.1.0")
 }
 
 java {
@@ -88,6 +87,17 @@ publishing {
             version = rootProject.version.toString()
             artifact(tasks.shadowJar)
             artifact(tasks.getByName("javadocJar"))
+
+            pom {
+                withXml {
+                    asNode().appendNode("dependencies").appendNode("dependency").apply {
+                        appendNode("groupId", "org.jetbrains")
+                        appendNode("artifactId", "annotations")
+                        appendNode("version", "24.1.0")
+                        appendNode("scope", "provided")
+                    }
+                }
+            }
         }
     }
 }
