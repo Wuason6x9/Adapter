@@ -10,7 +10,6 @@
  * Key Classes:
  * - {@link dev.wuason.adapter.Adapter}: The main interface for managing adapters.
  * - {@link dev.wuason.adapter.AdapterComp}: Abstract base class for adapter implementations.
- * - {@link dev.wuason.adapter.AdapterException}: Custom exception for adapter-related errors.
  *
  * @author Wuason
  *
