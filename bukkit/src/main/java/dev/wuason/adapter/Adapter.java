@@ -31,25 +31,27 @@ public interface Adapter {
         return AdapterImpl.getItemStack(adapterId);
     }
 
+
     /**
-     * Retrieves the adapter ID associated with the given ItemStack.
-     * The adapter ID is a unique identifier for the adapter tied to the provided item.
+     * Retrieves the Adapter ID associated with the given ItemStack.
+     * The Adapter ID is a unique identifier used to represent the adapter tied to the provided ItemStack.
      *
-     * @param itemStack the ItemStack for which the adapter ID is to be retrieved must not be null
-     * @return the adapter ID as a String, or null if the ItemStack has no associated adapter ID
+     * @param itemStack the ItemStack for which the Adapter ID is to be retrieved; must not be null
+     * @return the Adapter ID as a non-null String associated with the given ItemStack
      */
-    static @Nullable String getAdapterId(@NotNull ItemStack itemStack) {
+    static @NotNull String getAdapterId(@NotNull ItemStack itemStack) {
         return AdapterImpl.getAdapterId(itemStack);
     }
 
+
     /**
-     * Retrieves the adapter ID associated with the given Block.
-     * Returns null if the block is null or if no adapter ID is found.
+     * Retrieves the Adapter ID associated with the given Block.
+     * The Adapter ID is a unique identifier used to represent the adapter tied to the provided block.
      *
-     * @param block the Block for which the adapter ID is to be retrieved must not be null
-     * @return the adapter ID as a String, or null if no adapter ID is found
+     * @param block the Block for which the Adapter ID is to be retrieved; must not be null
+     * @return the Adapter ID as a non-null String associated with the given Block
      */
-    static @Nullable String getAdapterId(@NotNull Block block) {
+    static @NotNull String getAdapterId(@NotNull Block block) {
         return AdapterImpl.getAdapterId(block);
     }
 
