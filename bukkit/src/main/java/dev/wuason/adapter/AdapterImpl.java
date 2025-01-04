@@ -18,9 +18,8 @@ public class AdapterImpl {
 
     private static boolean initialized = false;
 
-    public static ItemStack getItemStack(String itemId) {
-        String[] data = process(itemId);
-        return getAdapter(data[0]).getAdapterItem(data[1]);
+    public static ItemStack getItemStack(String adapterId) {
+        return process(adapterId).map(aData -> aData.adapter().getAdapterItem(aData.id())).orElse(null);
     }
 
     public static List<ItemStack> getItemsStack(List<String> itemsId) {
@@ -128,12 +127,11 @@ public class AdapterImpl {
 
 
     public static boolean exists(String itemId) {
-        String normalized = normalize(itemId);
-        return normalized != null && compatibilities.values().stream().anyMatch(impl -> impl.existItemAdapter(normalized));
+        return process(itemId).map(aData -> aData.adapter().existItemAdapter(aData.id())).orElse(false);
     }
 
     public static boolean isValid(String itemId) {
-        return process(itemId) != null;
+        return process(itemId).isPresent();
     }
 
     public static List<String> isValidAdapterIds(List<String> i) {
@@ -180,11 +178,6 @@ public class AdapterImpl {
         return getAdapter("mc");
     }
 
-    private static String normalize(String itemId) {
-        String[] data = process(itemId);
-        return data[0] + ":" + data[1];
-    }
-
     private final static HashMap<String, AdapterComp> compatibilities = new HashMap<>();
     private final static HashMap<String, AdapterComp> compatibilities_types = new HashMap<>();
     private final static HashMap<String, AdapterComp> compatibilities_aliases = new HashMap<>();
@@ -209,14 +202,13 @@ public class AdapterImpl {
         }
     }
 
-    private static String[] process(String line) throws AdapterException { // format: type:id
-        if (line == null || line.isBlank() || !line.contains(":")) throw new AdapterException("Invalid format: correct format is type:id");
-        String type = line.substring(0, line.indexOf(":")).toLowerCase(Locale.ENGLISH);
-        String id = line.substring(line.indexOf(":") + 1);
-        if (type.isBlank() || id.isBlank()) throw new AdapterException("Invalid format: correct format is type:id");
+    private static Optional<AdapterData> process(String adapterId) { // format: type:id
+        if (adapterId == null || adapterId.isBlank() || !adapterId.contains(":")) return Optional.empty();
+        String type = adapterId.substring(0, adapterId.indexOf(":")).toLowerCase(Locale.ENGLISH);
+        String id = adapterId.substring(adapterId.indexOf(":") + 1);
+        if (type.isBlank() || id.isBlank()) return Optional.empty();
         AdapterComp adapter = existAdapter(type) ? getAdapter(type) : getAdapterByAlias(type);
-        if (adapter == null) throw new AdapterException("Adapter not found for type: " + type);
-        return new String[]{adapter.getType(), id};
+        return adapter != null ? Optional.of(new AdapterData(adapter, id, type)) : Optional.empty();
     }
 
     public static void init(Plugin plugin) {

@@ -9,7 +9,7 @@ plugins {
 allprojects {
 
     group = "dev.wuason"
-    version = "1.0.1"
+    version = "1.0.2"
 
     apply(plugin = "java")
 

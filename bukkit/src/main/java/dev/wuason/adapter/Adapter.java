@@ -150,7 +150,7 @@ public interface Adapter {
      * @param adapterIds a non-null list of adapter IDs to validate
      * @return a list of invalid adapter IDs that were found in the input list
      */
-    static List<String> isValidAdapterIds(@NotNull List<String> adapterIds) {
+    static @NotNull List<String> isValidAdapterIds(@NotNull List<String> adapterIds) {
         return AdapterImpl.isValidAdapterIds(adapterIds);
     }
 
