@@ -174,6 +174,10 @@ public class AdapterImpl {
         return compatibilities_aliases.get(alias.toLowerCase(Locale.ENGLISH));
     }
 
+    public static List<String> getAllReferences(String pluginName) {
+        return Collections.unmodifiableList(compatibilities_references.get(getAdapterByName(pluginName)));
+    }
+
     public static AdapterComp getVanillaAdapter() {
         return getAdapter("mc");
     }
@@ -181,6 +185,7 @@ public class AdapterImpl {
     private final static HashMap<String, AdapterComp> compatibilities = new HashMap<>();
     private final static HashMap<String, AdapterComp> compatibilities_types = new HashMap<>();
     private final static HashMap<String, AdapterComp> compatibilities_aliases = new HashMap<>();
+    private final static HashMap<AdapterComp, List<String>> compatibilities_references = new HashMap<>();
 
 
     @FunctionalInterface
@@ -196,6 +201,9 @@ public class AdapterImpl {
             compatibilities.put(pluginName.toLowerCase(Locale.ENGLISH), adapter);
             compatibilities_types.put(type.toLowerCase(Locale.ENGLISH), adapter);
             aliases.stream().map(a -> a.toLowerCase(Locale.ENGLISH)).forEach(a -> compatibilities_aliases.put(a, adapter));
+            compatibilities_references.put(adapter, new ArrayList<>());
+            compatibilities_references.get(adapter).add(type.toLowerCase(Locale.ENGLISH));
+            compatibilities_references.get(adapter).addAll(aliases.stream().map(a -> a.toLowerCase(Locale.ENGLISH)).toList());
         }
         catch (Exception e) {
             e.printStackTrace();

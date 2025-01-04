@@ -243,6 +243,10 @@ public interface Adapter {
         return AdapterImpl.getAdapterByName(pluginName);
     }
 
+    static @NotNull List<String> getAllReferences(@NotNull String pluginName) {
+        return AdapterImpl.getAllReferences(pluginName);
+    }
+
     /**
      * Initializes the adapter with the provided plugin instance.
      * This method is used to set up the adapter implementation for the specified plugin.
