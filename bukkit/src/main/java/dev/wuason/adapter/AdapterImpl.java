@@ -19,7 +19,7 @@ public class AdapterImpl {
     private static boolean initialized = false;
 
     public static ItemStack getItemStack(String adapterId) {
-        return process(adapterId).map(aData -> aData.adapter().getAdapterItem(aData.id())).orElse(null);
+        return getAdapterData(adapterId).map(aData -> aData.adapter().getAdapterItem(aData.id())).orElse(null);
     }
 
     public static List<ItemStack> getItemsStack(List<String> itemsId) {
@@ -127,11 +127,11 @@ public class AdapterImpl {
 
 
     public static boolean exists(String itemId) {
-        return process(itemId).map(aData -> aData.adapter().existItemAdapter(aData.id())).orElse(false);
+        return getAdapterData(itemId).map(aData -> aData.adapter().existItemAdapter(aData.id())).orElse(false);
     }
 
     public static boolean isValid(String itemId) {
-        return process(itemId).isPresent();
+        return getAdapterData(itemId).isPresent();
     }
 
     public static List<String> isValidAdapterIds(List<String> i) {
@@ -210,7 +210,7 @@ public class AdapterImpl {
         }
     }
 
-    private static Optional<AdapterData> process(String adapterId) { // format: type:id
+    public static Optional<AdapterData> getAdapterData(String adapterId) { // format: type:id
         if (adapterId == null || adapterId.isBlank() || !adapterId.contains(":")) return Optional.empty();
         String type = adapterId.substring(0, adapterId.indexOf(":")).toLowerCase(Locale.ENGLISH);
         String id = adapterId.substring(adapterId.indexOf(":") + 1);

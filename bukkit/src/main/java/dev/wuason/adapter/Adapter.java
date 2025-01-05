@@ -243,8 +243,25 @@ public interface Adapter {
         return AdapterImpl.getAdapterByName(pluginName);
     }
 
+    /**
+     * Retrieves all reference strings associated with the specified plugin name.
+     *
+     * @param pluginName the name of the plugin for which the references are to be retrieved; must not be null
+     * @return a non-null list of strings representing all references associated with the specified plugin. Type and aliases
+     */
     static @NotNull List<String> getAllReferences(@NotNull String pluginName) {
         return AdapterImpl.getAllReferences(pluginName);
+    }
+
+    /**
+     * Retrieves the adapter data associated with the specified adapter ID.
+     * The adapter data contains detailed information about a specific adapter.
+     *
+     * @param adapterId the ID of the adapter to retrieve data for; must not be null
+     * @return an Optional containing the AdapterData if found, or an empty Optional if no data exists for the given adapter ID
+     */
+    static @NotNull Optional<AdapterData> getAdapterData(@NotNull String adapterId) {
+        return AdapterImpl.getAdapterData(adapterId);
     }
 
     /**

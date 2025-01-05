@@ -9,7 +9,7 @@ plugins {
 allprojects {
 
     group = "dev.wuason"
-    version = "1.0.3"
+    version = "1.0.4"
 
     apply(plugin = "java")
 
@@ -31,6 +31,7 @@ dependencies {
     implementation(project(":common")) //Common
     implementation(project(":oraxen2")) //Oraxen 2
     implementation(project(":bukkit")) //Bukkit
+    implementation(project(":nexo")) //NMS
 }
 
 java {
