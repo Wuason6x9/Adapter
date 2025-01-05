@@ -224,11 +224,13 @@ public class AdapterImpl {
         if (initialized) throw new IllegalStateException("Adapter has already been initialized");
         initialized = true;
 
-        if (AdapterImpl.class.getPackage().getName().equals("dev.wuason.adapter")) {
+        String packageName = "dev:wuason:adapter".replace(":", ".");
+
+        if (AdapterImpl.class.getPackage().getName().equals(packageName)) {
             plugin.getLogger().severe("---------------------------------------------");
             plugin.getLogger().severe("---------------------------------------------");
             plugin.getLogger().severe("You need remap the package of adapter library to your package.");
-            plugin.getLogger().severe("Remap: dev.wuason.adapter -> your.package.libs.adapter");
+            plugin.getLogger().severe("Remap: " + packageName + " -> your.package.libs.adapter");
             plugin.getLogger().severe("Info: https://github.com/Wuason6x9/Adapter");
             plugin.getLogger().severe("---------------------------------------------");
             plugin.getLogger().severe("---------------------------------------------");
@@ -241,7 +243,7 @@ public class AdapterImpl {
                             plugin.getLogger().severe("---------------------------------------------");
                             plugin.getLogger().severe("Plugin: " + p.getName() + " is using the adapter library. Maybe problems will occur.");
                             plugin.getLogger().severe("To fix this, remap the package of the adapter library to your package.");
-                            plugin.getLogger().severe("Remap: dev.wuason.adapter -> your.package.libs.adapter");
+                            plugin.getLogger().severe("Remap: " + packageName + " -> your.package.libs.adapter");
                             plugin.getLogger().severe("Info: https://github.com/Wuason6x9/Adapter");
                             plugin.getLogger().severe("---------------------------------------------");
                         }
