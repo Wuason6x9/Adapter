@@ -21,4 +21,9 @@ public record AdapterData(AdapterComp adapter, String id, String type) {
         }
         return false;
     }
+
+    @Override
+    public int hashCode() {
+        return adapter.hashCode() + id.hashCode();
+    }
 }

@@ -253,18 +253,19 @@ public class AdapterImpl {
             }
         }
 
-        Builder.of("vanilla", "mc", VanillaImpl::new)
+        Builder.of(AdapterType.VANILLA.getName(), AdapterType.VANILLA.getType(), VanillaImpl::new)
                 .aliases("minecraft")
                 .addNameAsAlias()
                 .checkLoaded(false)
                 .register();
-        Builder.of("ItemsAdder", "ia", ItemsAdderImpl::new)
+        Builder.of(AdapterType.ITEMS_ADDER.getName(), AdapterType.ITEMS_ADDER.getType(), ItemsAdderImpl::new)
                 .addNameAsAlias()
                 .register();
-        Builder.of("Nexo", "nx", (pluginName, type) -> {
+        Builder.of(AdapterType.NEXO.getName(), AdapterType.NEXO.getType(), (pluginName, type) -> {
                     try {
                         Class<?> clazz = Class.forName("dev.wuason.adapter.plugins.NexoImpl");
-                        return (AdapterComp) clazz.getConstructor(String.class, String.class).newInstance(pluginName, type);
+                        return (AdapterComp) clazz.getConstructor(String.class, String.class)
+                                .newInstance(pluginName, type);
                     } catch (ClassNotFoundException | InvocationTargetException | InstantiationException |
                              IllegalAccessException | NoSuchMethodException e) {
                         throw new RuntimeException(e);
@@ -272,32 +273,32 @@ public class AdapterImpl {
                 })
                 .addNameAsAlias()
                 .register();
-        Builder.of("Oraxen", "or", OraxenImpl::new)
+        Builder.of(AdapterType.ORAXEN.getName(), AdapterType.ORAXEN.getType(), OraxenImpl::new)
                 .addNameAsAlias()
                 .aliases("oxn")
                 .register();
-        Builder.of("CustomItems", "ci", CustomItemsImpl::new)
+        Builder.of(AdapterType.CUSTOM_ITEMS.getName(), AdapterType.CUSTOM_ITEMS.getType(), CustomItemsImpl::new)
                 .aliases("cui")
                 .addNameAsAlias()
                 .register();
-        Builder.of("ExecutableBlocks", "eb", ExecutableBlocksImpl::new)
+        Builder.of(AdapterType.EXECUTABLE_BLOCKS.getName(), AdapterType.EXECUTABLE_BLOCKS.getType(), ExecutableBlocksImpl::new)
                 .addNameAsAlias()
                 .register();
-        Builder.of("ExecutableItems", "ei", ExecutableItemsImpl::new)
+        Builder.of(AdapterType.EXECUTABLE_ITEMS.getName(), AdapterType.EXECUTABLE_ITEMS.getType(), ExecutableItemsImpl::new)
                 .addNameAsAlias()
                 .register();
-        Builder.of("MMOItems", "mmoI", MMOItemsImpl::new)
+        Builder.of(AdapterType.MMO_ITEMS.getName(), AdapterType.MMO_ITEMS.getType(), MMOItemsImpl::new)
                 .addNameAsAlias()
                 .register();
-        Builder.of("MythicCrucible", "crucible", MythicCrucibleImpl::new)
+        Builder.of(AdapterType.MYTHIC_CRUCIBLE.getName(), AdapterType.MYTHIC_CRUCIBLE.getType(), MythicCrucibleImpl::new)
                 .addNameAsAlias()
                 .aliases("mythicC", "mCrucible")
                 .register();
-        Builder.of("MythicMobs", "mythic", MythicMobsImpl::new)
+        Builder.of(AdapterType.MYTHIC_MOBS.getName(), AdapterType.MYTHIC_MOBS.getType(), MythicMobsImpl::new)
                 .addNameAsAlias()
                 .aliases("mMobs", "mythicM")
                 .register();
-        Builder.of("StorageMechanic", "sm", StorageMechanicImpl::new)
+        Builder.of(AdapterType.STORAGE_MECHANIC.getName(), AdapterType.STORAGE_MECHANIC.getType(), StorageMechanicImpl::new)
                 .addNameAsAlias()
                 .aliases("storageM", "sMechanic")
                 .register();
@@ -338,6 +339,36 @@ public class AdapterImpl {
 
         public void register() {
             registerAdapter(pluginName, type, checkLoaded, aliases, creator);
+        }
+    }
+
+    public enum AdapterType {
+        VANILLA("Vanilla", "mc"),
+        ITEMS_ADDER("ItemsAdder", "ia"),
+        NEXO("Nexo", "nx"),
+        ORAXEN("Oraxen", "or"),
+        CUSTOM_ITEMS("CustomItems", "ci"),
+        EXECUTABLE_BLOCKS("ExecutableBlocks", "eb"),
+        EXECUTABLE_ITEMS("ExecutableItems", "ei"),
+        MMO_ITEMS("MMOItems", "mmoI"),
+        MYTHIC_CRUCIBLE("MythicCrucible", "crucible"),
+        MYTHIC_MOBS("MythicMobs", "mythic"),
+        STORAGE_MECHANIC("StorageMechanic", "sm");
+
+        private final String name;
+        private final String type;
+
+        AdapterType(String name, String type) {
+            this.name = name;
+            this.type = type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getType() {
+            return type;
         }
     }
 }
