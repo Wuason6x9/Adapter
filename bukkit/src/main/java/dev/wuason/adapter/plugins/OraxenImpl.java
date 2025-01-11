@@ -22,7 +22,7 @@ public class OraxenImpl extends AdapterComp {
         }
 
         try {
-            Class<?> oraxenComp = Class.forName(String.format("dev.wuason.mechanics.adapter.plugins.Oraxen%sImpl", oraxen2 ? "2" : "1"));
+            Class<?> oraxenComp = Class.forName(String.format("dev.wuason.adapter.plugins.Oraxen%sImpl", oraxen2 ? "2" : "1"));
             selected = (AdapterComp) oraxenComp.getConstructor(String.class, String.class).newInstance(name, type);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException |
                  InvocationTargetException e) {
