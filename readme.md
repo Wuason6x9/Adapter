@@ -2,7 +2,7 @@
 
 ### **Items Utils for Minecraft plugins.**
 
-### [JavaDoc here](https://jitpack.io/com/github/Wuason6x9/Adapter/1.0.1/javadoc "Go to javadoc")
+### [JavaDoc here](https://jitpack.io/com/github/Wuason6x9/Adapter/1.0.2/javadoc "Go to javadoc")
 
 ## Index
 
