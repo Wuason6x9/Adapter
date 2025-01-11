@@ -22,8 +22,30 @@ public record AdapterData(AdapterComp adapter, String id, String type) {
         return false;
     }
 
+    /**
+     * Computes a hash code for this AdapterData instance.
+     * The hash code is calculated based on the hash codes of the adapter and id fields.
+     *
+     * @return the hash code value for this AdapterData instance
+     */
     @Override
     public int hashCode() {
         return adapter.hashCode() + id.hashCode();
+    }
+
+    /**
+     * Returns a string*/
+    @Override
+    public String toString() {
+        return Utils.convert(adapter.getType(), id);
+    }
+
+    /**
+     * Retrieves the adapter identifier by combining the adapter type and ID into a single string representation.
+     *
+     * @return a string that represents the adapter identifier, formatted as "type:id"
+     */
+    public String getAdapterId() {
+        return toString();
     }
 }
