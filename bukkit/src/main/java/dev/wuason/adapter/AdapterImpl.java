@@ -125,6 +125,54 @@ public class AdapterImpl {
                 ;
     }
 
+    public static List<String> getAdvancedAdapterIdsItems(ItemStack itemStack) {
+        return compatibilities.values()
+                .stream()
+                .map(adapter -> adapter.getAdvancedAdapterId(itemStack))
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    public static List<String> getAdvancedAdapterIdsBlocks(Block block) {
+        return compatibilities.values()
+                .stream()
+                .map(adapter -> adapter.getAdvancedAdapterId(block))
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    public static List<String> getAdvancedAdapterIdsEntities(Entity entity) {
+        return compatibilities.values()
+                .stream()
+                .map(adapter -> adapter.getAdvancedAdapterId(entity))
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    public static List<String> getAdapterIdsItems(ItemStack itemStack) {
+        return compatibilities.values()
+                .stream()
+                .map(adapter -> adapter.getAdapterId(itemStack))
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    public static List<String> getAdapterIdsBlocks(Block block) {
+        return compatibilities.values()
+                .stream()
+                .map(adapter -> adapter.getAdapterId(block))
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
+    public static List<String> getAdapterIdsEntities(Entity entity) {
+        return compatibilities.values()
+                .stream()
+                .map(adapter -> adapter.getAdapterId(entity))
+                .filter(Objects::nonNull)
+                .toList();
+    }
+
 
     public static boolean exists(String itemId) {
         return getAdapterData(itemId).map(aData -> aData.adapter().existItemAdapter(aData.id())).orElse(false);

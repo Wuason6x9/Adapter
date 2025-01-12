@@ -130,6 +130,68 @@ public interface Adapter {
         return AdapterImpl.getAllItems();
     }
 
+
+    /**
+     * Retrieves a list of advanced adapter ID items from the provided ItemStack.
+     *
+     * @param itemStack the ItemStack from which to extract the advanced adapter ID items. Must not be null.
+     * @return a non-null list of strings representing the advanced adapter ID items extracted from the given ItemStack.
+     */
+    static @NotNull List<String> getAdvancedAdapterIdsItems(@NotNull ItemStack itemStack) {
+        return AdapterImpl.getAdvancedAdapterIdsItems(itemStack);
+    }
+
+    /**
+     * Retrieves a list of advanced adapter ID strings associated with the given block.
+     *
+     * @param block the block from which the advanced adapter IDs are extracted; must not be null
+     * @return a list of advanced adapter ID strings retrieved from the given block; never null
+     */
+    static @NotNull List<String> getAdvancedAdapterIdsBlocks(@NotNull Block block) {
+        return AdapterImpl.getAdvancedAdapterIdsBlocks(block);
+    }
+
+    /**
+     * Retrieves a list of advanced adapter ID entities based on the provided entity.
+     *
+     * @param entity the entity for which advanced adapter ID entities are to be fetched; must not be null
+     * @return a list of strings representing the advanced adapter ID entities; never null
+     */
+    static @NotNull List<String> getAdvancedAdapterIdsEntities(@NotNull Entity entity) {
+        return AdapterImpl.getAdvancedAdapterIdsEntities(entity);
+    }
+
+    /**
+     * Retrieves a list of adapter IDs associated with the provided item stack.
+     *
+     * @param itemStack the item stack whose adapter IDs need to be fetched; must not be null
+     * @return a non-null list of adapter ID strings associated with the given item stack
+     */
+    static @NotNull List<String> getAdapterIdsItems(@NotNull ItemStack itemStack) {
+        return AdapterImpl.getAdapterIdsItems(itemStack);
+    }
+
+    /**
+     * Retrieves a list of adapter IDs associated with the specified block.
+     *
+     * @param block the block from which to extract adapter IDs. Must be non-null.
+     * @return a list of adapter IDs as strings associated with the given block. Guaranteed to be non-null.
+     */
+    static @NotNull List<String> getAdapterIdsBlocks(@NotNull Block block) {
+        return AdapterImpl.getAdapterIdsBlocks(block);
+    }
+
+    /**
+     * Retrieves a list of adapter IDs associated with the given entity.
+     *
+     * @param entity the entity for which adapter IDs are to be retrieved; must not be null
+     * @return a list of adapter IDs related to the given entity; never null
+     */
+    static @NotNull List<String> getAdapterIdsEntities(@NotNull Entity entity) {
+        return AdapterImpl.getAdapterIdsEntities(entity);
+    }
+
+
     /**
      * Validates whether the given adapter ID corresponds to a valid adapter.
      * The adapter ID should be in the format "adapter:id".
