@@ -23,12 +23,12 @@ public class StorageMechanicImpl extends AdapterComp {
 
     @Override
     public String getAdapterId(ItemStack itemStack) {
-        return StorageMechanicAPI.getId(itemStack);
+        return Utils.convert(getType(), StorageMechanicAPI.getId(itemStack));
     }
 
     @Override
     public String getAdapterId(Block block) {
-        return StorageMechanicAPI.getId(block);
+        return Utils.convert(getType(), StorageMechanicAPI.getId(block));
     }
 
     @Override
