@@ -48,4 +48,5 @@ public record AdapterData(AdapterComp adapter, String id, String type) {
     public String getAdapterId() {
         return toString();
     }
+
 }

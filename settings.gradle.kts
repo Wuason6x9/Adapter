@@ -4,5 +4,6 @@ include(
     ":bukkit",
     ":common",
     ":oraxen2",
-    ":nexo"
+    ":nexo",
+    ":craft-engine"
 )

@@ -327,6 +327,76 @@ public interface Adapter {
     }
 
     /**
+     * Retrieves the adapter data associated with the specified item stack.
+     *
+     * @param itemStack the item stack for which to retrieve the adapter data. Must not be null.
+     * @return an optional containing the adapter data if available, otherwise an empty optional.
+     */
+    static @NotNull Optional<AdapterData> getAdapterData(@NotNull ItemStack itemStack) {
+        return AdapterImpl.getAdapterData(itemStack);
+    }
+
+    /**
+     * Retrieves the adapter data associated with the specified block.
+     *
+     * @param block the Block instance for which adapter data is to be retrieved
+     * @return an Optional containing the AdapterData if available, or an empty Optional if no data is associated with the block
+     */
+    static @NotNull Optional<AdapterData> getAdapterData(@NotNull Block block) {
+        return AdapterImpl.getAdapterData(block);
+    }
+
+    /**
+     * Retrieves adapter data associated with the given entity.
+     *
+     * @param entity the entity for which adapter data is to be retrieved; must not be null
+     * @return an {@code Optional} containing the adapter data if available, or an empty {@code Optional} if not
+     */
+    static @NotNull Optional<AdapterData> getAdapterData(@NotNull Entity entity) {
+        return AdapterImpl.getAdapterData(entity);
+    }
+
+    /**
+     * Retrieves the advanced adapter data associated with the provided item stack.
+     *
+     * @param itemStack the item stack for which the advanced adapter data is to be retrieved; must not be null.
+     * @return an optional containing the advanced adapter data if available; otherwise, an empty optional.
+     */
+    static @NotNull Optional<AdapterData> getAdvancedAdapterData(@NotNull ItemStack itemStack) {
+        return AdapterImpl.getAdvancedAdapterData(itemStack);
+    }
+
+    /**
+     * Retrieves the advanced adapter data associated with the provided block.
+     *
+     * @param block the block for which advanced adapter data is requested; must not be null
+     * @return an Optional containing the advanced adapter data if available; otherwise, an empty Optional
+     */
+    static @NotNull Optional<AdapterData> getAdvancedAdapterData(@NotNull Block block) {
+        return AdapterImpl.getAdvancedAdapterData(block);
+    }
+
+    /**
+     * Retrieves advanced adapter data associated with the given entity.
+     *
+     * @param entity the entity for which advanced adapter data is to be retrieved, must not be null
+     * @return an Optional containing the AdapterData if found, or an empty Optional if no data is available
+     */
+    static @NotNull Optional<AdapterData> getAdvancedAdapterData(@NotNull Entity entity) {
+        return AdapterImpl.getAdvancedAdapterData(entity);
+    }
+
+    /**
+     * Retrieves an item stack based on the provided adapter data.
+     *
+     * @param adapterData the adapter data used to resolve the item stack, must not be null
+     * @return the resolved item stack if available; otherwise, null
+     */
+    static @Nullable ItemStack getItemStack(@NotNull AdapterData adapterData) {
+        return AdapterImpl.getItemStack(adapterData);
+    }
+
+    /**
      * Initializes the adapter with the provided plugin instance.
      * This method is used to set up the adapter implementation for the specified plugin.
      *

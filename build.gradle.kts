@@ -23,6 +23,7 @@ allprojects {
         maven("https://repo.oraxen.com/releases/")
         maven("https://nexus.phoenixdevt.fr/repository/maven-public/")
         maven("https://mvn.lumine.io/repository/maven-public/")
+        maven("https://repo.momirealms.net/releases/")
     }
 
 }
@@ -32,6 +33,7 @@ dependencies {
     implementation(project(":oraxen2")) //Oraxen 2
     implementation(project(":bukkit")) //Bukkit
     implementation(project(":nexo")) //NMS
+    implementation(project(":craft-engine")) //CraftEngine
 }
 
 java {

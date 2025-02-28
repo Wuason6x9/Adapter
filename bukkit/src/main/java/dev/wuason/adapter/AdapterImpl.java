@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.PluginClassLoader;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -267,6 +268,35 @@ public class AdapterImpl {
         return adapter != null ? Optional.of(new AdapterData(adapter, id, type)) : Optional.empty();
     }
 
+    public static Optional<AdapterData> getAdapterData(ItemStack item) {
+        return Optional.ofNullable(getAdapterId(item)).flatMap(AdapterImpl::getAdapterData);
+    }
+
+    public static Optional<AdapterData> getAdapterData(Block block) {
+        return Optional.ofNullable(getAdapterId(block)).flatMap(AdapterImpl::getAdapterData);
+    }
+
+    public static Optional<AdapterData> getAdapterData(Entity entity) {
+        return Optional.ofNullable(getAdapterId(entity)).flatMap(AdapterImpl::getAdapterData);
+    }
+
+    public static Optional<AdapterData> getAdvancedAdapterData(ItemStack item) {
+        return Optional.ofNullable(getAdvancedAdapterId(item)).flatMap(AdapterImpl::getAdapterData);
+    }
+
+    public static Optional<AdapterData> getAdvancedAdapterData(Block block) {
+        return Optional.ofNullable(getAdvancedAdapterId(block)).flatMap(AdapterImpl::getAdapterData);
+    }
+
+    public static Optional<AdapterData> getAdvancedAdapterData(Entity entity) {
+        return Optional.ofNullable(getAdvancedAdapterId(entity)).flatMap(AdapterImpl::getAdapterData);
+    }
+
+    @Nullable
+    public static ItemStack getItemStack(AdapterData aData) {
+        return aData.adapter().getAdapterItem(aData.id());
+    }
+
     public static void init(Plugin plugin) {
 
         if (initialized) throw new IllegalStateException("Adapter has already been initialized");
@@ -302,7 +332,7 @@ public class AdapterImpl {
         }
 
         Builder.of(AdapterType.VANILLA.getName(), AdapterType.VANILLA.getType(), VanillaImpl::new)
-                .aliases("minecraft")
+                .aliases(AdapterType.VANILLA.getAliases())
                 .addNameAsAlias()
                 .checkLoaded(false)
                 .register();
@@ -323,10 +353,10 @@ public class AdapterImpl {
                 .register();
         Builder.of(AdapterType.ORAXEN.getName(), AdapterType.ORAXEN.getType(), OraxenImpl::new)
                 .addNameAsAlias()
-                .aliases("oxn")
+                .aliases(AdapterType.ORAXEN.getAliases())
                 .register();
         Builder.of(AdapterType.CUSTOM_ITEMS.getName(), AdapterType.CUSTOM_ITEMS.getType(), CustomItemsImpl::new)
-                .aliases("cui")
+                .aliases(AdapterType.CUSTOM_ITEMS.getAliases())
                 .addNameAsAlias()
                 .register();
         Builder.of(AdapterType.EXECUTABLE_BLOCKS.getName(), AdapterType.EXECUTABLE_BLOCKS.getType(), ExecutableBlocksImpl::new)
@@ -340,15 +370,28 @@ public class AdapterImpl {
                 .register();
         Builder.of(AdapterType.MYTHIC_CRUCIBLE.getName(), AdapterType.MYTHIC_CRUCIBLE.getType(), MythicCrucibleImpl::new)
                 .addNameAsAlias()
-                .aliases("mythicC", "mCrucible")
+                .aliases(AdapterType.MYTHIC_CRUCIBLE.getAliases())
                 .register();
         Builder.of(AdapterType.MYTHIC_MOBS.getName(), AdapterType.MYTHIC_MOBS.getType(), MythicMobsImpl::new)
                 .addNameAsAlias()
-                .aliases("mMobs", "mythicM")
+                .aliases(AdapterType.MYTHIC_MOBS.getAliases())
                 .register();
         Builder.of(AdapterType.STORAGE_MECHANIC.getName(), AdapterType.STORAGE_MECHANIC.getType(), StorageMechanicImpl::new)
                 .addNameAsAlias()
-                .aliases("storageM", "sMechanic")
+                .aliases(AdapterType.STORAGE_MECHANIC.getAliases())
+                .register();
+        Builder.of(AdapterType.CRAFT_ENGINE.getName(), AdapterType.CRAFT_ENGINE.getType(), (pluginName, type) -> {
+                    try {
+                        Class<?> clazz = Class.forName("dev.wuason.adapter.plugins.CraftEngineImpl");
+                        return (AdapterComp) clazz.getConstructor(String.class, String.class)
+                                .newInstance(pluginName, type);
+                    } catch (ClassNotFoundException | InvocationTargetException | InstantiationException |
+                             IllegalAccessException | NoSuchMethodException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .addNameAsAlias()
+                .aliases(AdapterType.CRAFT_ENGINE.getAliases())
                 .register();
     }
 
@@ -391,24 +434,27 @@ public class AdapterImpl {
     }
 
     public enum AdapterType {
-        VANILLA("Vanilla", "mc"),
+        VANILLA("Vanilla", "mc", "minecraft"),
         ITEMS_ADDER("ItemsAdder", "ia"),
         NEXO("Nexo", "nx"),
-        ORAXEN("Oraxen", "or"),
-        CUSTOM_ITEMS("CustomItems", "ci"),
+        ORAXEN("Oraxen", "or", "oxn"),
+        CUSTOM_ITEMS("CustomItems", "ci", "cui"),
         EXECUTABLE_BLOCKS("ExecutableBlocks", "eb"),
         EXECUTABLE_ITEMS("ExecutableItems", "ei"),
         MMO_ITEMS("MMOItems", "mmoI"),
-        MYTHIC_CRUCIBLE("MythicCrucible", "crucible"),
-        MYTHIC_MOBS("MythicMobs", "mythic"),
-        STORAGE_MECHANIC("StorageMechanic", "sm");
+        MYTHIC_CRUCIBLE("MythicCrucible", "crucible", "mythicC", "mCrucible"),
+        MYTHIC_MOBS("MythicMobs", "mythic", "mMobs", "mythicM"),
+        STORAGE_MECHANIC("StorageMechanic", "sm", "storageM", "sMechanic"),
+        CRAFT_ENGINE("CraftEngine", "ce", "craftE", "cEngine");
 
         private final String name;
         private final String type;
+        private final String[] aliases;
 
-        AdapterType(String name, String type) {
+        AdapterType(String name, String type, String... aliases) {
             this.name = name;
             this.type = type;
+            this.aliases = aliases;
         }
 
         public String getName() {
@@ -417,6 +463,10 @@ public class AdapterImpl {
 
         public String getType() {
             return type;
+        }
+
+        public String[] getAliases() {
+            return aliases;
         }
     }
 }
