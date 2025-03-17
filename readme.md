@@ -254,7 +254,7 @@ public class PluginExample extends JavaPlugin {
 | [MythicCrucible](https://mythiccraft.io/index.php?resources/crucible-custom-items-armor-furniture-blocks-more.2/)                                     | `crucible` | `mythicc`, `mcrucible`, `mythiccrucible`   | `(crucible, mythicc, mcrucible, mythiccrucible):(id)` | `crucible:ruby_sword` or `mcrucible:ruby_sword`               |                                             |
 | [MythicMobs](https://www.spigotmc.org/resources/%E2%9A%94-mythicmobs-free-version-%E2%96%BAthe-1-custom-mob-creator%E2%97%84.5702/)                   | `mythic`   | `mythicmobs`, `mmobs`, `mythicm`           | `(mythic, mythicmobs, mmobs, mythicm):(id)`           | `mythic:ruby_sword` or `mythicmobs:ruby_sword`                |                                             |
 | [StorageMechanic](https://www.spigotmc.org/resources/%E2%9A%A1storagemechanic%E2%9A%A1-mythicmobs-itemsadder-oraxen-more.112391/)                     | `sm`       | `storagem`, `smechanic`, `storagemechanic` | `(sm, storagem, smechanic, storagemechanic):(id)`     | `sm:backpack` or `storagem:backpack`                          |                                             |
-
+| [CraftEngine](https://github.com/Xiao-MoMi/craft-engine)                                                                                              | `ce`       | `craftengine`, `craftE`, `cEngine`         | `(ce, craftengine, craftE, cEngine):(id)`             | `ce:ruby_sword` or `craftengine:ruby_sword`                   |                                             |
 ### More Examples
 
 #### Compare adapters

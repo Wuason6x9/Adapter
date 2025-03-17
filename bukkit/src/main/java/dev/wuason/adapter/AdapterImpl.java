@@ -339,16 +339,7 @@ public class AdapterImpl {
         Builder.of(AdapterType.ITEMS_ADDER.getName(), AdapterType.ITEMS_ADDER.getType(), ItemsAdderImpl::new)
                 .addNameAsAlias()
                 .register();
-        Builder.of(AdapterType.NEXO.getName(), AdapterType.NEXO.getType(), (pluginName, type) -> {
-                    try {
-                        Class<?> clazz = Class.forName("dev.wuason.adapter.plugins.NexoImpl");
-                        return (AdapterComp) clazz.getConstructor(String.class, String.class)
-                                .newInstance(pluginName, type);
-                    } catch (ClassNotFoundException | InvocationTargetException | InstantiationException |
-                             IllegalAccessException | NoSuchMethodException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+        Builder.of(AdapterType.NEXO.getName(), AdapterType.NEXO.getType(), "dev.wuason.adapter.plugins.NexoImpl")
                 .addNameAsAlias()
                 .register();
         Builder.of(AdapterType.ORAXEN.getName(), AdapterType.ORAXEN.getType(), OraxenImpl::new)
@@ -380,16 +371,7 @@ public class AdapterImpl {
                 .addNameAsAlias()
                 .aliases(AdapterType.STORAGE_MECHANIC.getAliases())
                 .register();
-        Builder.of(AdapterType.CRAFT_ENGINE.getName(), AdapterType.CRAFT_ENGINE.getType(), (pluginName, type) -> {
-                    try {
-                        Class<?> clazz = Class.forName("dev.wuason.adapter.plugins.CraftEngineImpl");
-                        return (AdapterComp) clazz.getConstructor(String.class, String.class)
-                                .newInstance(pluginName, type);
-                    } catch (ClassNotFoundException | InvocationTargetException | InstantiationException |
-                             IllegalAccessException | NoSuchMethodException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+        Builder.of(AdapterType.CRAFT_ENGINE.getName(), AdapterType.CRAFT_ENGINE.getType(), "dev.wuason.adapter.plugins.CraftEngineImpl")
                 .addNameAsAlias()
                 .aliases(AdapterType.CRAFT_ENGINE.getAliases())
                 .register();
@@ -405,6 +387,19 @@ public class AdapterImpl {
 
         public static Builder of(String pluginName, String type, AdapterCreator creator) {
             return new Builder(pluginName, type, creator);
+        }
+
+        public static Builder of(String pluginName, String type, String className) {
+            return new Builder(pluginName, type, (pluginName1, type1) -> {
+                try {
+                    Class<?> clazz = Class.forName(className);
+                    return (AdapterComp) clazz.getConstructor(String.class, String.class)
+                            .newInstance(pluginName1, type1);
+                } catch (ClassNotFoundException | InvocationTargetException | InstantiationException |
+                         IllegalAccessException | NoSuchMethodException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
 
         private Builder(String pluginName, String type, AdapterCreator creator) {

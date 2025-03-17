@@ -3,7 +3,7 @@ dependencies {
     compileOnly(project(":common"))
 
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT") //Vanilla
-    compileOnly("com.github.LoneDev6:API-ItemsAdder:3.5.0b") //ItemsAdder
+    compileOnly("dev.lone:api-itemsadder:4.0.2-beta-release-11") //ItemsAdder
     compileOnly("com.github.oraxen:oraxen:1.159.0") //Oraxen 1
     compileOnly(fileTree("libs")) // ExecutableItems and ExecutableBlocks
     implementation(fileTree("libs-impl")) // StorageMechanic and CustomItems

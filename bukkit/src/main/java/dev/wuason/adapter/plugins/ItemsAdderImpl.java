@@ -34,7 +34,9 @@ public class ItemsAdderImpl extends AdapterComp {
     @Override
     public String getAdapterId(Block block) {
         CustomBlock customBlock = CustomBlock.byAlreadyPlaced(block);
-        return customBlock != null ? Utils.convert(getType(), customBlock.getNamespacedID()) : null;
+        CustomFurniture customFurniture = CustomFurniture.byAlreadySpawned(block);
+        return customBlock != null ? Utils.convert(getType(), customBlock.getNamespacedID()) :
+                customFurniture != null ? Utils.convert(getType(), customFurniture.getNamespacedID()) : null;
     }
 
     @Override

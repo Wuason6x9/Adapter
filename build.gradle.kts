@@ -9,7 +9,7 @@ plugins {
 allprojects {
 
     group = "dev.wuason"
-    version = "1.0.4"
+    version = "1.0.5"
 
     apply(plugin = "java")
 
@@ -24,6 +24,7 @@ allprojects {
         maven("https://nexus.phoenixdevt.fr/repository/maven-public/")
         maven("https://mvn.lumine.io/repository/maven-public/")
         maven("https://repo.momirealms.net/releases/")
+        maven("https://maven.devs.beer/")
     }
 
 }
