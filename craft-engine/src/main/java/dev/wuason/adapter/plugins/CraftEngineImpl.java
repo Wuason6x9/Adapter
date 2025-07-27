@@ -44,7 +44,7 @@ public class CraftEngineImpl extends AdapterComp {
     @Override
     public String getAdapterId(Entity entity) {
         if (!CraftEngineFurniture.isFurniture(entity)) return null;
-        return CraftEngineFurniture.isSeat(entity) ? Utils.convert(getType(), CraftEngineFurniture.getLoadedFurnitureBySeat(entity).furnitureId().toString()) : Utils.convert(getType(), CraftEngineFurniture.getLoadedFurnitureByBaseEntity(entity).furnitureId().toString());
+        return CraftEngineFurniture.isSeat(entity) ? Utils.convert(getType(), CraftEngineFurniture.getLoadedFurnitureBySeat(entity).id().toString()) : Utils.convert(getType(), CraftEngineFurniture.getLoadedFurnitureByBaseEntity(entity).id().toString());
     }
 
     @Override
