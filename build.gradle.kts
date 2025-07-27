@@ -3,7 +3,7 @@ import org.gradle.internal.declarativedsl.parsing.main
 plugins {
     id("java")
     id("com.gradleup.shadow") version "8.3.5"
-    id("org.gradle.maven-publish")
+    //id("org.gradle.maven-publish")
 }
 
 allprojects {
@@ -82,7 +82,7 @@ tasks {
         dependsOn(jar)
     }
 }
-
+/*
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
@@ -104,7 +104,7 @@ publishing {
             }
         }
     }
-}
+}*/
 
 val file = file("readme.md")
 gradle.projectsEvaluated {
