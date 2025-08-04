@@ -69,6 +69,6 @@ public class CraftEngineImpl extends AdapterComp {
 
     @Override
     public String getAdapterId(ItemStack itemStack) {
-        return CraftEngineItems.isCustomItem(itemStack) ? Utils.convert(getType(), CraftEngineItems.getCustomItemId(itemStack).toString()) : null;
+        return Optional.ofNullable(CraftEngineItems.getCustomItemId(itemStack)).map(k -> Utils.convert(getType(), k.toString())).orElse(null);
     }
 }
