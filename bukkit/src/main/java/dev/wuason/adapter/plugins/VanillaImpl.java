@@ -118,4 +118,8 @@ public class VanillaImpl extends AdapterComp {
         return "{}";
     }
 
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

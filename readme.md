@@ -15,6 +15,7 @@
 - [Usage](#usage)
 - [Compatibilities](#compatibilities)
 - [More Examples](#more-examples)
+- [Do you want to test the library?](#do-you-want-to-test-the-library)
 
 > [!NOTE]
 > This library will still be updated and improved, so if you have any suggestions or find any bugs, please let me know.
@@ -298,3 +299,49 @@ public class PluginExample extends JavaPlugin {
     }
 }
 ```
+
+### Do you want to test the library?
+
+You can build and test the sample plugin included in the Gradle subproject named `plugin` to verify the adapter works with the supported compatibilities.
+
+- Subproject: `plugin`
+- Gradle task: `shadowJar`
+
+You can use the minecraft commands to test the plugin:
+
+- Base usage
+  - /adapter <list|get|give|exist>
+  - Quick example to get started: hold any item and run:
+    - /adapter get hand
+
+- /adapter list
+  - Shows all available adapters with their type, name, and enabled state.
+  - Example: /adapter list
+
+- /adapter exist <adapter:id>
+  - Checks whether a specific adapter id exists.
+  - Example: /adapter exist mc:diamond_sword
+
+- /adapter get hand
+  - Players only. Prints the AdapterId and AdvancedId (if different) of the item in your main hand.
+  - Example: /adapter get hand
+
+- /adapter get block
+  - Players only. Prints the AdapterId and AdvancedId (if different) of the block you are looking at (within 6 blocks).
+  - Example: /adapter get block
+
+- /adapter give <player> <adapter:id> [amount]
+  - Gives the specified adapter item to a player. Amount is optional (default 1) and will be split into valid stacks automatically.
+  - Examples:
+    - /adapter give Steve mc:diamond_sword
+    - /adapter give Steve mc:diamond 32
+
+Tab completion:
+- 1st arg: list, get, give, exist
+- 2nd arg:
+  - get: hand, block
+  - give: online player names
+  - exist: placeholder <adapter:id>
+- 3rd arg (for give): dynamic suggestions of available adapter ids
+- 4th arg (for give): 1, 16, 32, 64
+

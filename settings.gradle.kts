@@ -5,5 +5,6 @@ include(
     ":common",
     ":oraxen2",
     ":nexo",
-    ":craft-engine"
+    ":craft-engine",
+    ":plugin"
 )

@@ -1,5 +1,6 @@
 package dev.wuason.adapter;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
@@ -42,4 +43,8 @@ public abstract class AdapterComp {
     public abstract boolean existItemAdapter(String id);
 
     public abstract Set<String> getAllItems();
+
+    public boolean isEnabled() {
+        return Bukkit.getPluginManager().isPluginEnabled(getName());
+    }
 }

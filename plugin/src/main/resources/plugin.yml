@@ -1,0 +1,17 @@
+name: AdapterTestingDev
+main: dev.wuason.testing.adapter.Main
+version: 1.0.0
+api-version: 1.20.4
+author: Wuason
+website: docs.techmc.es
+description: Adapter Testing Plugin for Testing Adapter Features.
+commands:
+  adapter:
+    description: Adapter Testing Command
+    usage: /adapter <command>
+    aliases: [attest, adaptertest]
+    permission: adapter.command
+    permission-message: You do not have permission to use this command.
+permissions:
+  adapter.command:
+    description: Allows the use of the adapter command

@@ -57,6 +57,8 @@ public class CraftEngineImpl extends AdapterComp {
         return getAdapterId(block);
     }
 
+
+
     @Override
     public String getAdvancedAdapterId(Entity entity) {
         return getAdapterId(entity);
