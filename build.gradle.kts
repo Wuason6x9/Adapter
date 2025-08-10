@@ -9,7 +9,7 @@ plugins {
 allprojects {
 
     group = "dev.wuason"
-    version = "1.0.6"
+    version = "1.0.6.1"
 
     apply(plugin = "java")
 
@@ -54,19 +54,25 @@ tasks.register<Jar>("javadocJar") {
 tasks {
 
     javadoc {
-        dependsOn(shadowJar)
+        dependsOn(named("classes"))
 
-        setDestinationDir(file("build/javadoc"))
+        val includedSubprojects = subprojects.filter { it.path != ":plugin" }
 
-        val modules = subprojects.flatMap { subproject ->
-            subproject.sourceSets["main"].allJava.srcDirs
-        }.filter { it.exists() }
+        dependsOn(includedSubprojects.map { it.tasks.named("classes") })
 
-        val submoduleClasspath = subprojects
-            .flatMap { it.sourceSets["main"].compileClasspath }
+        val modules = includedSubprojects
+            .flatMap { it.sourceSets["main"].allJava.srcDirs }
+            .filter { it.exists() }
+
+        val submoduleClasspath = includedSubprojects.flatMap {
+            val main = it.sourceSets["main"]
+            listOf(main.output) + main.compileClasspath
+        }
 
         source(modules)
         classpath = files(submoduleClasspath)
+
+        setDestinationDir(file("build/javadoc"))
     }
 
     build {
