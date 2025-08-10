@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT") //Vanilla
-    implementation(project(project.rootProject.path))
+    implementation(project(":"))
 }
 
 java {
@@ -25,4 +25,8 @@ tasks {
     build {
         dependsOn(shadowJar)
     }
+}
+
+tasks.named<JavaCompile>("compileJava") {
+    dependsOn(":jar")
 }
