@@ -3,13 +3,13 @@ import org.gradle.internal.declarativedsl.parsing.main
 plugins {
     id("java")
     id("com.gradleup.shadow") version "8.3.5"
-    id("org.gradle.maven-publish")
+    id("maven-publish")
 }
 
 allprojects {
 
     group = "dev.wuason"
-    version = "1.0.6.1"
+    version = "1.0.6.2"
 
     apply(plugin = "java")
 
@@ -90,6 +90,15 @@ tasks {
 }
 
 publishing {
+    repositories {
+        maven {
+            url = uri("https://repo.techmc.es/releases")
+            credentials(PasswordCredentials::class) {
+                username = System.getenv("REPO_USERNAME")
+                password = System.getenv("REPO_PASSWORD")
+            }
+        }
+    }
     publications {
         create<MavenPublication>("mavenJava") {
             groupId = rootProject.group.toString()
@@ -97,14 +106,14 @@ publishing {
             version = rootProject.version.toString()
             artifact(tasks.shadowJar)
             artifact(tasks.getByName("javadocJar"))
-
             pom {
-                withXml {
-                    asNode().appendNode("dependencies").appendNode("dependency").apply {
-                        appendNode("groupId", "org.jetbrains")
-                        appendNode("artifactId", "annotations")
-                        appendNode("version", "24.1.0")
-                        appendNode("scope", "provided")
+                name = "Adapter API"
+                url = "https://github.com/Wuason6x9/Adapter/"
+                licenses {
+                    license {
+                        name = "GNU General Public License v3.0"
+                        url = "https://www.gnu.org/licenses/gpl-3.0.html"
+                        distribution = "repo"
                     }
                 }
             }
@@ -115,7 +124,11 @@ publishing {
 val file = file("readme.md")
 gradle.projectsEvaluated {
     val content = file.readText()
-    val newContent = content.replace(Regex("(?<=Adapter/)(.*?)(?=/javadoc)"), "${project.version}")
+    val newContent = content
+        .replace(
+            Regex("""(?<=https://repo\.techmc\.es/javadoc/releases/dev/wuason/Adapter/)([^)\s]+)"""),
+            "${project.version}"
+        )
     file.writeText(newContent)
     println("Readme.md updated")
 }

@@ -65,6 +65,7 @@ public class AdapterImpl {
     public static String getAdapterId(ItemStack item) {
         if (item == null) return null;
         ItemStack i = item.clone();
+        if (!i.hasItemMeta()) i.setItemMeta(Bukkit.getItemFactory().getItemMeta(i.getType()));
         return compatibilities.values()
                 .stream()
                 .map(adapter -> adapter.getAdapterId(i))
@@ -97,6 +98,7 @@ public class AdapterImpl {
     public static String getAdvancedAdapterId(ItemStack item) {
         if (item == null) return null;
         ItemStack i = item.clone();
+        if (!i.hasItemMeta()) i.setItemMeta(Bukkit.getItemFactory().getItemMeta(i.getType()));
         return compatibilities.values()
                 .stream()
                 .map(adapter -> adapter.getAdvancedAdapterId(i))

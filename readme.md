@@ -2,7 +2,7 @@
 
 ### **Items Utils for Minecraft plugins.**
 
-### [JavaDoc here](https://jitpack.io/com/github/Wuason6x9/Adapter/1.0.6.1/javadoc "Go to javadoc")
+### [JavaDoc here](https://repo.techmc.es/javadoc/releases/dev/wuason/Adapter/1.0.6.2 "Go to javadoc")
 
 ## Index
 
@@ -73,13 +73,14 @@ mc:diamond -> itemstack diamond**
 
 <repositories>
     <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
+        <id>techmc-studios-releases</id>
+        <name>TechMC Repository</name>
+        <url>https://repo.techmc.es/releases</url>
     </repository>
 </repositories>
 
 <dependency>
-    <groupId>com.github.Wuason6x9</groupId>
+    <groupId>dev.wuason</groupId>
     <artifactId>Adapter</artifactId>
     <version>RELEASE-VERSION</version>
     <scope>provided</scope>
@@ -99,17 +100,20 @@ plugins {
 }
 
 repositories {
-maven { url 'https://jitpack.io' }
+    maven {
+        name "techmcStudiosReleases"
+        url "https://repo.techmc.es/releases"
+    }
 }
 
 dependencies {
-implementation 'com.github.Wuason6x9:Adapter:RELEASE-VERSION'
+    implementation "dev.wuason:Adapter:RELEASE-VERSION"
 }
 
 tasks {
-shadowJar {
-relocate("dev.wuason.adapter", "my.project.libs.adapter")
-}
+    shadowJar {
+        relocate("dev.wuason.adapter", "my.project.libs.adapter")
+    }
 }
 ```
 </details>
@@ -126,11 +130,14 @@ plugins {
 }
 
 repositories {
-    maven("https://jitpack.io")
+    maven {
+        name = "techmcStudiosReleases"
+        url = uri("https://repo.techmc.es/releases")
+    }
 }
 
 dependencies {
-    implementation("com.github.Wuason6x9:Adapter:RELEASE-VERSION")
+    implementation("dev.wuason:Adapter:RELEASE-VERSION")
 }
 
 tasks.shadowJar {
