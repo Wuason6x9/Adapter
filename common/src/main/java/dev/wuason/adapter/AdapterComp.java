@@ -4,45 +4,45 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Set;
 
 public abstract class AdapterComp {
-    private final String name;
-    private final String type;
+    private final @NotNull String name;
+    private final @NotNull String type;
 
-    public AdapterComp(String name, String type) {
+    public AdapterComp(@NotNull String name, @NotNull String type) {
         this.name = name;
         this.type = type;
     }
 
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
-    public String getType() {
+    public @NotNull String getType() {
         return type;
     }
 
-    public abstract ItemStack
-    getAdapterItem(String id);
+    public abstract @Nullable ItemStack getAdapterItem(@NotNull String id);
 
-    public abstract String getAdapterId(ItemStack itemStack);
+    public abstract @Nullable String getAdapterId(@NotNull ItemStack itemStack);
 
-    public abstract String getAdapterId(Block block);
+    public abstract @Nullable String getAdapterId(@NotNull Block block);
 
-    public abstract String getAdapterId(Entity entity);
+    public abstract @Nullable String getAdapterId(@NotNull Entity entity);
 
-    public abstract String getAdvancedAdapterId(ItemStack itemStack);
+    public abstract @Nullable String getAdvancedAdapterId(@NotNull ItemStack itemStack);
 
-    public abstract String getAdvancedAdapterId(Block block);
+    public abstract @Nullable String getAdvancedAdapterId(@NotNull Block block);
 
-    public abstract String getAdvancedAdapterId(Entity entity);
+    public abstract @Nullable String getAdvancedAdapterId(@NotNull Entity entity);
 
-    public abstract boolean existItemAdapter(String id);
+    public abstract boolean existItemAdapter(@NotNull String id);
 
-    public abstract Set<String> getAllItems();
+    public abstract @Nullable Set<String> getAllItems();
 
     public boolean isEnabled() {
         return Bukkit.getPluginManager().isPluginEnabled(getName());

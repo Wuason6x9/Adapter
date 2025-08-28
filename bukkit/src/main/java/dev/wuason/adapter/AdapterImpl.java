@@ -62,13 +62,19 @@ public class AdapterImpl {
         return Optional.ofNullable(items.stream().filter(i -> isSimilar(adapterId, i)).findFirst().orElse(null));
     }
 
+    @Nullable
     public static String getAdapterId(ItemStack item) {
         if (item == null) return null;
         ItemStack i = item.clone();
-        if (!i.hasItemMeta()) i.setItemMeta(Bukkit.getItemFactory().getItemMeta(i.getType()));
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdapterId(i))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdapterId(i);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null)
@@ -78,7 +84,13 @@ public class AdapterImpl {
     public static String getAdapterId(Block block) {
         return block == null ? null : compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdapterId(block))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdapterId(block);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null)
@@ -88,7 +100,13 @@ public class AdapterImpl {
     public static String getAdapterId(Entity entity) {
         return entity == null ? null : compatibilities.values()
                 .stream()
-                .map(impl -> impl.getAdapterId(entity))
+                .map(impl -> {
+                    try {
+                        return impl.getAdapterId(entity);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null)
@@ -101,7 +119,13 @@ public class AdapterImpl {
         if (!i.hasItemMeta()) i.setItemMeta(Bukkit.getItemFactory().getItemMeta(i.getType()));
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdvancedAdapterId(i))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdvancedAdapterId(i);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null)
@@ -111,7 +135,13 @@ public class AdapterImpl {
     public static String getAdvancedAdapterId(Block block) {
         return block == null ? null : compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdvancedAdapterId(block))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdvancedAdapterId(block);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null)
@@ -121,7 +151,13 @@ public class AdapterImpl {
     public static String getAdvancedAdapterId(Entity entity) {
         return entity == null ? null : compatibilities.values()
                 .stream()
-                .map(impl -> impl.getAdvancedAdapterId(entity))
+                .map(impl -> {
+                    try {
+                        return impl.getAdvancedAdapterId(entity);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .findFirst()
                 .orElse(null)
@@ -131,7 +167,13 @@ public class AdapterImpl {
     public static List<String> getAdvancedAdapterIdsItems(ItemStack itemStack) {
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdvancedAdapterId(itemStack))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdvancedAdapterId(itemStack);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .toList();
     }
@@ -139,7 +181,13 @@ public class AdapterImpl {
     public static List<String> getAdvancedAdapterIdsBlocks(Block block) {
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdvancedAdapterId(block))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdvancedAdapterId(block);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .toList();
     }
@@ -147,7 +195,13 @@ public class AdapterImpl {
     public static List<String> getAdvancedAdapterIdsEntities(Entity entity) {
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdvancedAdapterId(entity))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdvancedAdapterId(entity);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .toList();
     }
@@ -155,7 +209,13 @@ public class AdapterImpl {
     public static List<String> getAdapterIdsItems(ItemStack itemStack) {
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdapterId(itemStack))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdapterId(itemStack);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .toList();
     }
@@ -163,7 +223,13 @@ public class AdapterImpl {
     public static List<String> getAdapterIdsBlocks(Block block) {
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdapterId(block))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdapterId(block);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .toList();
     }
@@ -171,7 +237,13 @@ public class AdapterImpl {
     public static List<String> getAdapterIdsEntities(Entity entity) {
         return compatibilities.values()
                 .stream()
-                .map(adapter -> adapter.getAdapterId(entity))
+                .map(adapter -> {
+                    try {
+                        return adapter.getAdapterId(entity);
+                    } catch (Exception e) {
+                        return null;
+                    }
+                })
                 .filter(Objects::nonNull)
                 .toList();
     }
@@ -467,3 +539,4 @@ public class AdapterImpl {
         }
     }
 }
+
