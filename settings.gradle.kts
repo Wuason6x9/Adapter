@@ -1,4 +1,4 @@
-rootProject.name = "Adapter"
+rootProject.name = "adapter"
 
 include(
     ":bukkit",

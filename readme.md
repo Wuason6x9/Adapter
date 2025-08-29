@@ -81,8 +81,8 @@ mc:diamond -> itemstack diamond**
 
 <dependency>
     <groupId>dev.wuason</groupId>
-    <artifactId>Adapter</artifactId>
-    <version>RELEASE-VERSION</version>
+    <artifactId>adapter</artifactId>
+    <version>RELEASE</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -107,7 +107,7 @@ repositories {
 }
 
 dependencies {
-    implementation "dev.wuason:Adapter:RELEASE-VERSION"
+    implementation "dev.wuason:adapter:RELEASE"
 }
 
 tasks {
@@ -137,7 +137,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.wuason:Adapter:RELEASE-VERSION")
+    implementation("dev.wuason:adapter:RELEASE")
 }
 
 tasks.shadowJar {
